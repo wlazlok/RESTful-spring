@@ -13,4 +13,12 @@ public class CategoryListDTO {
     public CategoryListDTO(List<CategoryDTO> categories) {
         this.categories = categories;
     }
+
+    public List<CategoryDTO> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<CategoryDTO> categories) {
+        this.categories = categories;
+    }
 }
