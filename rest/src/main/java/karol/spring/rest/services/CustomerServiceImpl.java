@@ -2,6 +2,7 @@ package karol.spring.rest.services;
 
 import karol.spring.rest.api.v1.mapper.CustomerMapper;
 import karol.spring.rest.api.v1.model.CustomerDTO;
+import karol.spring.rest.models.Customer;
 import karol.spring.rest.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,17 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findById(id)
                 .map(customerMapper::customerToCustomerDTO)
                 .orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+
+        Customer customer = customerMapper.CustomerDTOToCustomer(customerDTO);
+
+        Customer savedCustomer = customerRepository.save(customer);
+
+        CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
+
+        return returnDTO;
     }
 }
