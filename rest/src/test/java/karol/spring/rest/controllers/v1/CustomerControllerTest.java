@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -116,5 +116,15 @@ class CustomerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo("Karol")))
                 .andExpect(jsonPath("$.lastName", equalTo("Test")));
+    }
+
+    @Test
+    void deleteCustomer() throws Exception {
+
+        mockMvc.perform(delete("/api/v1/customers/1")
+                            .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(customerService, times(1)).deleteCustomerById(anyLong());
     }
 }
