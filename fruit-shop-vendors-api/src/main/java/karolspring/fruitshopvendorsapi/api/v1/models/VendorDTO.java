@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class VendorDTO {
 
+    private String URL = "/api/vendors/";
+
     private Long id;
     private String name;
     private String url;
@@ -30,6 +32,6 @@ public class VendorDTO {
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        this.url = URL + this.id;
     }
 }

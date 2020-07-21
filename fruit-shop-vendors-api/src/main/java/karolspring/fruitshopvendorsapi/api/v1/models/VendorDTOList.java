@@ -8,6 +8,10 @@ public class VendorDTOList {
 
     List<VendorDTO> vendors;
 
+    public VendorDTOList(List<VendorDTO> vendors) {
+        this.vendors = vendors;
+    }
+
     public List<VendorDTO> getVendors() {
         return vendors;
     }
