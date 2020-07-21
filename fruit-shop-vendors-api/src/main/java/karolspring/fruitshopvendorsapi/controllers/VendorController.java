@@ -38,6 +38,13 @@ public class VendorController {
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteVendorById(@PathVariable Long id){
-        
+        vendorService.deleteVendorById(id);
+    }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public VendorDTO updateVendor(@PathVariable Long id, @RequestBody VendorDTO vendorDTO){
+
+        return vendorService.updateVendorById(id, vendorDTO);
     }
 }

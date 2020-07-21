@@ -53,4 +53,21 @@ public class VendorServiceImpl implements VendorService {
                 .map(vendorMapper::vendorToVendorDTO)
                 .orElseThrow(RuntimeException::new);
     }
+
+    @Override
+    public void deleteVendorById(Long id) {
+        vendorRepository.deleteById(id);
+    }
+
+    @Override
+    public VendorDTO updateVendorById(Long id, VendorDTO vendorDTO) {
+
+        return vendorRepository.findById(id).map(vendor -> {
+
+            if(vendorDTO.getName() != null)
+                vendor.setName(vendorDTO.getName());
+
+            return vendorMapper.vendorToVendorDTO(vendorRepository.save(vendor));
+        }).orElseThrow(RuntimeException::new);
+    }
 }
