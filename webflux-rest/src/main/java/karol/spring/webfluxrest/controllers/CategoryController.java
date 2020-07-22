@@ -2,11 +2,12 @@ package karol.spring.webfluxrest.controllers;
 
 import karol.spring.webfluxrest.models.Category;
 import karol.spring.webfluxrest.repositories.CategoryRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.reactivestreams.Publisher;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 
 @RestController
 public class CategoryController {
@@ -30,5 +31,15 @@ public class CategoryController {
         return categoryRepository.findById(id);
     }
 
+    @PostMapping("/api/v1/categories/")
+    @ResponseStatus(HttpStatus.CREATED)
+    Mono<Void> createCategory(Publisher<Category> categoryStream){
+        return categoryRepository.saveAll(categoryStream).then();
+    }
 
+    @PutMapping("/api/v1/categories/{id}")
+    Mono<Category> updateCategory(@PathVariable String id, @RequestBody Category category){
+        category.setId(id);
+        return  categoryRepository.save(category);
+    }
 }
