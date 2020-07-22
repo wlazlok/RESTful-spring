@@ -2,6 +2,7 @@ package karol.spring.webfluxrest.controllers;
 
 import karol.spring.webfluxrest.models.Category;
 import karol.spring.webfluxrest.repositories.CategoryRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -9,9 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.reactivestreams.Publisher;
+import org.springframework.test.util.AssertionErrors;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 import static org.mockito.ArgumentMatchers.any;
 
 
@@ -86,7 +89,7 @@ class CategoryControllerTest {
 
         Category category1 = new Category();
         category1.setId(category.getId());
-        category.setDescription("To Update");
+        category1.setDescription("To Update");
 
         Mono<Category> catToUpdate = Mono.just(category1);
 
