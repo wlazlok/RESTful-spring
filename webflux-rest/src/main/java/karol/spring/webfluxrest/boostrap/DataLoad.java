@@ -51,6 +51,7 @@ public class DataLoad implements CommandLineRunner {
 
             System.out.println("Loaded vendors " + vendorRepository.count().block());
         }
-
+            //vendorRepository.deleteAll().block();
+            //categoryRepository.deleteAll().block();
     }
 }
